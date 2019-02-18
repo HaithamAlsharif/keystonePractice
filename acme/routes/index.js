@@ -38,6 +38,7 @@ exports = module.exports = function (app) {
 	app.get('/blog/:category?', routes.views.blog);
 	app.get('/blog/post/:post', routes.views.post);
 	app.get('/gallery', routes.views.gallery);
+	app.get('/products/:product', routes.views.product); // :product is a placeholder for any slug that we throw inside, if you go to product.js then it's in filters ! 
 	app.get('/products', routes.views.products);
 	app.all('/contact', routes.views.contact);
 	// add the new routes/views that you make

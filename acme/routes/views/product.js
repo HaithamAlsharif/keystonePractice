@@ -6,24 +6,25 @@ exports = module.exports = function(req, res) {
 
   // Set locals
   locals.section = 'store';
+
   locals.filters = {
     product: req.params.product
   }
   locals.data = {
-    products:[]
+    product:[]
   }
+  // 'init' means when this view initializes and starts, execute the function !
+  view.on('init', function(next){
+    var query = keystone.list('Product').model.findOne({
+      slug: locals.filters.product
+    });
 
-view.on('init', function(next){
-  var q = keystone.list('Product').model.findOne({
-    slug: locals.filters.product
+    query.exec(function(err, result){
+      locals.data.product = result;
+      next(err);
+    });
+
   });
-
-  q.exec(function(err, result){
-    locals.data.product = result;
-    next(err);
-  });
-});
-
   // Render View
   view.render('product');
 }
